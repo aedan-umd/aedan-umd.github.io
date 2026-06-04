@@ -1,0 +1,71 @@
+name: Deploy to GitHub Pages
+
+# Builds the Vite site and publishes it to GitHub Pages on every push to main.
+# This does NOT touch TerpConnect — for that, run `npm run deploy` locally
+# (rsync), or see the note at the bottom about adding it here.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}   # allow manual runs from the Actions tab
+
+# Permissions required by the Pages deploy action.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; don't cancel an in-progress one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+# ---------------------------------------------------------------------------
+# Optional: also push to TerpConnect from CI.
+# This requires storing an SSH key as a repo secret (Settings > Secrets and
+# variables > Actions). Kept out by default — a local `npm run deploy` avoids
+# putting credentials in CI. If you want it, add a step like:
+#
+#   - name: Deploy to TerpConnect
+#     run: |
+#       mkdir -p ~/.ssh
+#       echo "${{ secrets.GLUE_SSH_KEY }}" > ~/.ssh/id_ed25519
+#       chmod 600 ~/.ssh/id_ed25519
+#       ssh-keyscan glue.umd.edu >> ~/.ssh/known_hosts
+#       rsync -avz dist/ aedan@glue.umd.edu:~/../pub/
+# ---------------------------------------------------------------------------

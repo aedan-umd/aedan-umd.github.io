@@ -1,0 +1,22 @@
+{
+  "name": "aedan-umd.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal homepage for terpconnect.umd.edu/~aedan, built with the UMD Design System.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && ./deploy.sh"
+  },
+  "dependencies": {
+    "@universityofmaryland/web-components-library": "^1.17.19",
+    "@universityofmaryland/web-elements-library": "^1.6.9",
+    "@universityofmaryland/web-styles-library": "^1.8.5",
+    "@universityofmaryland/web-token-library": "^1.0.2"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

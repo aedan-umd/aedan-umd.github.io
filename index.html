@@ -1,107 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>aedan</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0e0e10;
-    --fg: #ececec;
-    --muted: #8a8a8f;
-    --accent: #e8484f;
-    --line: #28282c;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--bg);
-    color: var(--fg);
-    font-family: 'Fraunces', Georgia, serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background-image: radial-gradient(circle at 20% 30%, rgba(232,72,79,0.06), transparent 40%);
-  }
-  main {
-    max-width: 580px;
-    width: 100%;
-  }
-  .mono { font-family: 'JetBrains Mono', monospace; }
-  .eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-  }
-  h1 {
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.25rem;
-  }
-  p.intro {
-    font-size: 1.15rem;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 2.5rem;
-  }
-  .links {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid var(--line);
-  }
-  .links a {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    padding: 1.1rem 0;
-    border-bottom: 1px solid var(--line);
-    color: var(--fg);
-    text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.95rem;
-    transition: padding-left 0.25s ease, color 0.25s ease;
-  }
-  .links a:hover {
-    padding-left: 1rem;
-    color: var(--accent);
-  }
-  .links a .arrow {
-    color: var(--muted);
-    transition: transform 0.25s ease, color 0.25s ease;
-  }
-  .links a:hover .arrow {
-    transform: translateX(4px);
-    color: var(--accent);
-  }
-  footer {
-    margin-top: 2.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aedan</title>
+  <meta name="description" content="Personal page of aedan — University of Maryland." />
+  <!-- Canonical URL. GitHub Pages is primary. To make TerpConnect canonical
+       later, change this single line to https://www.terpconnect.umd.edu/~aedan/ -->
+  <link rel="canonical" href="https://aedan-umd.github.io/" />
+  <link rel="stylesheet" href="./src/styles.css" />
 </head>
 <body>
-  <main>
-    <div class="eyebrow">University of Maryland</div>
-    <h1>aedan</h1>
-    <p class="intro">Hi — this is my personal page. Most of my work lives on GitHub. Take a look below.</p>
-    <nav class="links">
-      <a href="https://github.com/aedan-umd">
-        <span>GitHub &middot; @aedan-umd</span>
-        <span class="arrow">&rarr;</span>
-      </a>
-    </nav>
-    <footer>terpconnect.umd.edu/~aedan</footer>
+  <!--
+    No university header by design: this is a personal student page,
+    and the UMD university header is reserved for official unit sites.
+    We use the design system's tokens, styles, and components only.
+  -->
+
+  <main class="page">
+
+    <!-- HERO (component layer) -->
+    <section class="umd-layout-space-vertical-landing">
+      <umd-element-hero data-theme="dark" data-display="minimal">
+        <p slot="eyebrow">University of Maryland</p>
+        <h1 slot="headline">aedan</h1>
+        <div slot="text">
+          <p>Graduate work in machine learning &amp; systems. Most of what I
+          build lives on GitHub — a few projects are below.</p>
+        </div>
+        <div slot="actions">
+          <umd-element-call-to-action data-display="primary">
+            <a href="https://github.com/aedan-umd">GitHub · @aedan-umd</a>
+          </umd-element-call-to-action>
+        </div>
+      </umd-element-hero>
+    </section>
+
+    <!-- PROJECTS (component + styles layers) -->
+    <section class="section">
+      <h2 class="section__title">Projects</h2>
+
+      <div class="umd-grid-gap-three">
+
+        <umd-element-card data-theme="dark">
+          <p slot="eyebrow">MSML605 / MSAI605</p>
+          <h3 slot="headline">
+            <a href="https://github.com/aedan-umd/MSML-605-gp">Distributed MLOps Pipeline</a>
+          </h3>
+          <div slot="text">
+            <p>Three-service face-recognition pipeline (LFW → PCA → MLP) with a
+            FastAPI control plane and storage-backed data plane. Services exchange
+            artifact URIs rather than tensors over HTTP; MLflow handles tracking and
+            the model registry. Containerized with Docker Compose. ~97% Python.</p>
+          </div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary">
+              <a href="https://github.com/aedan-umd/MSML-605-gp">View repository</a>
+            </umd-element-call-to-action>
+          </div>
+        </umd-element-card>
+
+        <!--
+          Add more <umd-element-card> blocks here as you publish projects.
+          Template kept below (commented) so the grid fills out nicely.
+        -->
+        <!--
+        <umd-element-card data-theme="dark">
+          <p slot="eyebrow">Course / context</p>
+          <h3 slot="headline"><a href="REPO_URL">Project name</a></h3>
+          <div slot="text"><p>One or two sentences on what it does.</p></div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary">
+              <a href="REPO_URL">View repository</a>
+            </umd-element-call-to-action>
+          </div>
+        </umd-element-card>
+        -->
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>aedan-umd.github.io &nbsp;·&nbsp; mirrored at terpconnect.umd.edu/~aedan</p>
+    </footer>
+
   </main>
+
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>
