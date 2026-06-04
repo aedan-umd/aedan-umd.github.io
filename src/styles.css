@@ -1,0 +1,38 @@
+/* Font fallbacks for the official UMD families (licensed, not on Google Fonts).
+   To use the real faces, drop the font files in public/fonts/ and add @font-face
+   rules pointing at them. */
+:root {
+  --font-sans: Interstate, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: "Crimson Pro", Georgia, "Times New Roman", serif;
+  --font-condensed: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section__title {
+  font-family: var(--font-condensed);
+  font-size: 2rem;
+  margin: 0 0 2rem;
+}
+
+.footer {
+  padding: 2rem 0;
+  border-top: 1px solid #e5e5e5;
+  font-size: 0.875rem;
+  color: #666;
+}
